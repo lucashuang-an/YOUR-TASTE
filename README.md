@@ -1,35 +1,32 @@
 # ANAN's Photographs
 
-Photography portfolio + design system (PANA GROUND v2).
+Minimal dual-column photography portfolio (PANA GROUND v2 tokens).
 
-## Open locally
+## Browse
 
-- Portfolio: `index.html`
-- Design system: `design-system.html`
-- Spec: `DESIGN.md`
-- Demo (exhibition): `demo/index.html`
-
-Images are **not** in this repository. Put your selected photos in a local folder named `精选50张/` next to `index.html` (filenames such as `P1000448.JPG`). Original camera dumps (`100_PANA`, `101_PANA`, `102_PANA`) stay local only.
-
-## Stack
-
-Vanilla HTML / CSS / ES modules. No build step. Serve the repo root with any static server, or open via a local preview that can load modules.
+- **Live (GitHub Pages):** after Pages is enabled — `https://lucashuang-an.github.io/YOUR-TASTE/`
+- Local: open `index.html` via any static server
 
 ```bash
-# example
 python -m http.server 5173
-# then open http://localhost:5173/
+# http://localhost:5173/
 ```
 
 ## Structure
 
 ```
-index.html          # dual-column portfolio
+index.html
 css/styles.css
-js/photos.js        # photo map (50 frames)
+js/photos.js
 js/main.js
-demo/index.html     # design-system demo page
+精选50张/          # web-optimized JPGs used by the site
 DESIGN.md
 design-system.html
-docs/compose/       # feature specs
+docs/compose/
 ```
+
+Original camera dumps (`100_PANA` / `101_PANA` / `102_PANA`) are **not** in this repo.
+
+## Design system
+
+See `DESIGN.md` and `design-system.html`.
