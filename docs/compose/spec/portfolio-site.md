@@ -6,11 +6,11 @@ branch: master
 commits: (uncommitted — working tree only)
 ---
 
-# PANA GROUND Portfolio Site
+# YOUR-TASTE Portfolio Site
 
 ## Report
 
-**What was built** — A single-page English editorial portfolio for the 50 curated photos in `精选50张/`, using the PANA GROUND design system. Entry is `index.html` with `css/styles.css` and ES modules `js/photos.js` + `js/main.js`. Six chapters (Clay & Loom, High Country, Temple Light, Still & Form, Water & Village, Street Frame) use full-bleed / asymmetric / trio editorial rows — not a card grid. Interaction: IntersectionObserver reveals, scroll progress + chapter nav, hero micro-parallax (motion-safe), and a lightbox with prev/next/Esc/backdrop close.
+**What was built** — A single-page English editorial portfolio for the 50 curated photos in `精选50张/`, using the YOUR-TASTE design system. Entry is `index.html` with `css/styles.css` and ES modules `js/photos.js` + `js/main.js`. Six chapters (Clay & Loom, High Country, Temple Light, Still & Form, Water & Village, Street Frame) use full-bleed / asymmetric / trio editorial rows — not a card grid. Interaction: IntersectionObserver reveals, scroll progress + chapter nav, hero micro-parallax (motion-safe), and a lightbox with prev/next/Esc/backdrop close.
 
 **Verification** — `js/photos.js` maps 50/50 files with 0 missing (`_scripts/verify_portfolio.py`); `node --check` on both modules PASS; independent review PASS on spec compliance and correctness (no critical findings).
 
@@ -21,7 +21,7 @@ commits: (uncommitted — working tree only)
 - Review note: hero h1 is editorial copy (brand stays in chrome); acceptable deviation.
 
 ## [S1] Problem
-Need a single-page photography portfolio for the curated 50 images in `精选50张/`, using the PANA GROUND design system. Interaction should feel like a high-end editorial scroll (magazine / long-form photo essay), not a SaaS card grid. Copy is English-primary.
+Need a single-page photography portfolio for the curated 50 images in `精选50张/`, using the YOUR-TASTE design system. Interaction should feel like a high-end editorial scroll (magazine / long-form photo essay), not a SaaS card grid. Copy is English-primary.
 
 ## [S2] Design
 
