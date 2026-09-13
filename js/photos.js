@@ -1,4 +1,4 @@
-/* New 50 from 精选50张 — dual-column minimal portfolio */
+/* New 50 from images — dual-column minimal portfolio */
 
 export const sections = [
   {

@@ -1,6 +1,6 @@
 import { sections, photos } from "./photos.js";
 
-const SRC = "精选50张";
+const SRC = "images";
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function workHTML(p) {
