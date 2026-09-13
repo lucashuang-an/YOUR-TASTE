@@ -1,0 +1,20 @@
+# Original camera folders & local curated set (not published)
+100_PANA/
+101_PANA/
+102_PANA/
+精选50张/
+
+# local contact sheets / scratch
+_new_set_*.jpg
+_tmp_*/
+_contact_sheets/
+*.tmp
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# optional local scripts
+_scripts/

@@ -1,0 +1,684 @@
+/* Scott Snyder × Margaret: minimal dual-column, generous whitespace
+   PANA GROUND v2 tokens */
+
+:root {
+  --ink: #14161a;
+  --paper: #e6e4de;
+  --ash: #9a9b9e;
+  --limestone: #c4bdb2;
+  --terracotta: #b84a32;
+  --gold: #c4a46a;
+  --cerulean: #5b7fa3;
+  --sea: #6e8b94;
+  --slate: #4a5a6e;
+  --ivory: #f2f1ed;
+  --text-muted: #6b6e73;
+  --rule: #c9c6be;
+  --accent-soft: #e8d4cc;
+
+  --font-display: "Songti SC", Georgia, serif;
+  --font-body: "PingFang SC", "Segoe UI", system-ui, sans-serif;
+  --font-mono: Consolas, "SF Mono", monospace;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --max: 1080px;
+  --pad: clamp(24px, 5vw, 64px);
+  --col-gap: clamp(28px, 4vw, 56px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--terracotta);
+  text-underline-offset: 3px;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--cerulean);
+  outline-offset: 2px;
+}
+
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+/* —— chrome —— */
+.site-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px var(--pad);
+  background: rgba(230, 228, 222, 0.92);
+  border-bottom: 1px solid var(--rule);
+  pointer-events: auto;
+}
+
+.site-bar > * {
+  pointer-events: auto;
+}
+
+.site-brand {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.site-brand span {
+  color: var(--terracotta);
+}
+
+.site-links {
+  display: flex;
+  gap: 20px;
+  font-size: 13px;
+}
+
+.site-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.site-links a:hover {
+  color: var(--terracotta);
+}
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: var(--terracotta);
+  z-index: 50;
+}
+
+/* —— hero: name + one frame, lots of air —— */
+.hero {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  align-content: center;
+  /* clear fixed site-bar so banner and hero type never overlap */
+  padding: calc(72px + 6vh) 0 10vh;
+}
+
+.hero-inner {
+  display: grid;
+  gap: 6vh;
+}
+
+@media (min-width: 860px) {
+  .hero-inner {
+    grid-template-columns: 1fr 1.15fr;
+    align-items: end;
+    gap: 4vw;
+  }
+}
+
+.hero-kicker {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 16px;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(36px, 6vw, 56px);
+  line-height: 1.12;
+  margin: 0 0 18px;
+  letter-spacing: -0.02em;
+}
+
+.hero-lede {
+  margin: 0;
+  max-width: 28ch;
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+.hero-frame {
+  margin: 0;
+  width: 100%;
+}
+
+.hero-frame img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: var(--limestone);
+}
+
+@media (min-width: 860px) {
+  .hero-frame img {
+    aspect-ratio: 5 / 6;
+    max-height: 72vh;
+  }
+}
+
+.hero-frame figcaption {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* —— statement —— */
+.statement {
+  padding: 10vh 0 8vh;
+  border-top: 1px solid var(--rule);
+}
+
+.statement p {
+  margin: 0;
+  max-width: 36ch;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3vw, 30px);
+  line-height: 1.35;
+  font-weight: 500;
+}
+
+/* —— section head —— */
+.sec {
+  padding: 8vh var(--pad) 2vh;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.sec-head {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 7vh;
+  max-width: 32rem;
+  /* indent slightly from page edge like Snyder project intros */
+  padding-left: 0;
+}
+
+.sec-num {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--terracotta);
+}
+
+.sec-head h2 {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3.5vw, 36px);
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.sec-head p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* —— dual column gallery (Scott Snyder) —— */
+.dual {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(48px, 8vh, 88px) var(--col-gap);
+  padding-bottom: 8vh;
+}
+
+@media (min-width: 780px) {
+  .dual {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* stagger right column for air, not packed matrix */
+  .dual > :nth-child(even) {
+    margin-top: 10vh;
+  }
+}
+
+.work {
+  margin: 0;
+  width: 100%;
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: zoom-in;
+  text-align: left;
+  color: inherit;
+}
+
+.work img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  background: var(--limestone);
+  transition: opacity 0.35s var(--ease), transform 0.55s var(--ease);
+}
+
+.work.tall img {
+  aspect-ratio: 3 / 4;
+}
+
+.work.wide img {
+  aspect-ratio: 3 / 2;
+}
+
+.work.square img {
+  aspect-ratio: 1 / 1;
+}
+
+.work:hover img {
+  opacity: 0.92;
+  transform: translateY(-2px);
+}
+
+.work .cap {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* single full-width pause image (only occasionally) */
+.solo {
+  margin: 4vh auto 10vh;
+  max-width: var(--max);
+  padding: 0 var(--pad);
+}
+
+.solo button {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: zoom-in;
+  width: 100%;
+  text-align: left;
+  color: inherit;
+}
+
+.solo img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background: var(--limestone);
+}
+
+/* reveal — Margaret subtle */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .work:hover img {
+    transform: none;
+  }
+}
+
+/* —— about strip —— */
+.about {
+  border-top: 1px solid var(--rule);
+  padding: 10vh 0;
+}
+
+.about-grid {
+  display: grid;
+  gap: 32px;
+}
+
+@media (min-width: 780px) {
+  .about-grid {
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: var(--col-gap);
+  }
+}
+
+.about h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  margin: 0 0 12px;
+  font-weight: 600;
+}
+
+.about p {
+  margin: 0 0 12px;
+  color: var(--text-muted);
+  max-width: 42ch;
+}
+
+.about .meta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* —— lightbox —— */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: rgba(20, 22, 26, 0.93);
+  padding: 24px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-inner {
+  width: min(1080px, 100%);
+  display: grid;
+  gap: 14px;
+}
+
+.lightbox img {
+  max-width: 100%;
+  max-height: min(76vh, 880px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.lightbox-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  color: var(--ivory);
+}
+
+.lightbox-bar p {
+  margin: 0;
+  font-size: 13px;
+}
+
+.lightbox-bar .file {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--limestone);
+  margin-top: 4px;
+}
+
+.lightbox-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.lightbox-actions button {
+  appearance: none;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 14px;
+  border: 1px solid rgba(242, 241, 237, 0.3);
+  background: transparent;
+  color: var(--ivory);
+  font-family: var(--font-body);
+  font-size: 13px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.lightbox-actions button.primary {
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+}
+
+body.lb-open {
+  overflow: hidden;
+}
+
+footer.end {
+  border-top: 1px solid var(--rule);
+  padding: 28px 0 48px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+footer.end code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+/* —— custom cursor (desktop fine pointer only) —— */
+.cursor {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cursor {
+    display: grid;
+    place-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    margin: -6px 0 0 -6px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--ivory);
+    pointer-events: none;
+    z-index: 200;
+    transform: translate3d(-120px, -120px, 0);
+    transition: width 0.28s var(--ease), height 0.28s var(--ease), margin 0.28s var(--ease),
+      background 0.28s var(--ease);
+    will-change: transform;
+  }
+
+  .cursor .cursor-label {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .cursor.is-drag {
+    width: 72px;
+    height: 72px;
+    margin: -36px 0 0 -36px;
+    background: var(--terracotta);
+  }
+
+  .cursor.is-drag .cursor-label {
+    opacity: 1;
+  }
+
+  .cursor.is-view {
+    width: 56px;
+    height: 56px;
+    margin: -28px 0 0 -28px;
+    background: var(--cerulean);
+  }
+
+  .cursor.is-view .cursor-label {
+    opacity: 1;
+  }
+
+  body.has-cursor,
+  body.has-cursor a,
+  body.has-cursor button,
+  body.has-cursor .work,
+  body.has-cursor .drag-track {
+    cursor: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    display: none !important;
+  }
+  body.has-cursor,
+  body.has-cursor a,
+  body.has-cursor button,
+  body.has-cursor .work,
+  body.has-cursor .drag-track {
+    cursor: auto;
+  }
+}
+
+/* —— draggable horizontal strip —— */
+.drag-strip {
+  padding: 6vh 0 4vh;
+  border-top: 1px solid var(--rule);
+}
+
+.drag-strip-head {
+  margin-bottom: 20px;
+}
+
+.drag-hint {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.drag-track {
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+}
+
+.drag-track.is-dragging {
+  cursor: grabbing;
+}
+
+.drag-rail {
+  display: flex;
+  gap: clamp(16px, 2.5vw, 28px);
+  width: max-content;
+  padding: 8px var(--pad) 24px;
+  will-change: transform;
+}
+
+.drag-item {
+  flex: 0 0 auto;
+  width: min(42vw, 320px);
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  text-align: left;
+  color: inherit;
+  cursor: grab;
+}
+
+.drag-item:nth-child(3n) {
+  width: min(48vw, 380px);
+}
+
+.drag-item:nth-child(3n + 1) {
+  width: min(36vw, 280px);
+}
+
+.drag-item img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  background: var(--limestone);
+  pointer-events: none;
+  transition: transform 0.45s var(--ease), opacity 0.3s ease;
+}
+
+.drag-track.is-dragging .drag-item img {
+  transition: none;
+  transform: scale(1.025);
+}
+
+.drag-item:nth-child(3n) img {
+  aspect-ratio: 3 / 2;
+}
+
+.drag-item:active img {
+  opacity: 0.9;
+}
+
+.drag-item .cap {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drag-track.is-dragging .drag-item img {
+    transform: none;
+  }
+  .drag-item img {
+    transition: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .drag-item,
+  .drag-item:nth-child(3n),
+  .drag-item:nth-child(3n + 1) {
+    width: 68vw;
+  }
+}

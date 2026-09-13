@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ANAN's Photographs</title>
+    <meta
+      name="description"
+      content="Minimal dual-column portfolio: fifty frames of high country, water, structure, and night."
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="progress" aria-hidden="true"></div>
+    <div class="cursor" aria-hidden="true"><span class="cursor-label"></span></div>
+
+    <header class="site-bar">
+      <a class="site-brand" href="#">ANAN<span>'s</span></a>
+      <nav class="site-links" aria-label="Sections">
+        <a href="#works">Work</a>
+        <a href="#about">About</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <div>
+          <p class="hero-kicker">Portfolio · <span data-count>50</span> photographs</p>
+          <h1>ANAN's<br />Photographs</h1>
+          <p class="hero-lede">
+            A cool-paper portfolio of plateaus, seas, structures, and night. People appear only as
+            scale.
+          </p>
+        </div>
+        <figure class="hero-frame reveal">
+          <img data-hero-img src="精选50张/P1000448.JPG" alt="Snow peaks" />
+          <figcaption data-hero-cap>Snowline</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="statement">
+      <div class="wrap reveal">
+        <p>
+          Selected for light, weather, and subject — not for filling a grid. Two columns, wide
+          gutters, room to breathe.
+        </p>
+      </div>
+    </section>
+
+    <section class="drag-strip" id="strip" aria-label="Draggable photo strip">
+      <div class="wrap drag-strip-head reveal">
+        <p class="drag-hint">Drag to explore · 拖动浏览</p>
+      </div>
+      <div class="drag-track" data-drag-track>
+        <div class="drag-rail" data-drag-rail></div>
+      </div>
+    </section>
+
+    <div id="works"></div>
+
+    <section class="about" id="about">
+      <div class="wrap about-grid reveal">
+        <div>
+          <h2>About this set</h2>
+          <p>
+            Fifty photographs from a larger archive. Palette tokens were read from the images
+            themselves: cool paper, cerulean, sparse terracotta.
+          </p>
+          <p>
+            Layout follows a minimal dual-column gallery — whitespace first, no card grid. Motion is
+            limited to quiet scroll reveals.
+          </p>
+        </div>
+        <div>
+          <p>
+            Design system:
+            <a href="DESIGN.md">DESIGN.md</a>
+            ·
+            <a href="design-system.html">design-system.html</a>
+          </p>
+          <p class="meta">ANAN's Photographs · <span data-count>50</span> images</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="end">
+      <div class="wrap">ANAN's Photographs · dual-column portfolio</div>
+    </footer>
+
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+      <div class="lightbox-inner">
+        <img alt="" />
+        <div class="lightbox-bar">
+          <div>
+            <p data-cap></p>
+            <span class="file" data-file></span>
+          </div>
+          <div class="lightbox-actions">
+            <button type="button" class="lb-prev" aria-label="Previous">←</button>
+            <button type="button" class="lb-next" aria-label="Next">→</button>
+            <button type="button" class="lb-close primary" aria-label="Close">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PANA GROUND v2 — Design System</title>
+    <style>
+      /* 中文 ≤3：宋体、苹方；英文 ≤3：Georgia、Segoe UI/system-ui、Consolas */
+      :root {
+        --ink: #14161a;
+        --paper: #e6e4de;
+        --ash: #9a9b9e;
+        --limestone: #c4bdb2;
+        --terracotta: #b84a32;
+        --gold: #c4a46a;
+        --cerulean: #5b7fa3;
+        --sea: #6e8b94;
+        --slate: #4a5a6e;
+        --ivory: #f2f1ed;
+        --text-muted: #6b6e73;
+        --rule: #c9c6be;
+        --accent-soft: #e8d4cc;
+        --cool-soft: #d5dee8;
+
+        --font-display: "Songti SC", Georgia, serif;
+        --font-body: "PingFang SC", "Segoe UI", system-ui, sans-serif;
+        --font-mono: Consolas, "SF Mono", ui-monospace, monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: 15px;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: var(--terracotta);
+        text-underline-offset: 3px;
+      }
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--cerulean);
+        outline-offset: 2px;
+      }
+
+      .wrap {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      @media (min-width: 768px) {
+        .wrap {
+          padding: 0 40px;
+        }
+      }
+
+      .appbar {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: rgba(230, 228, 222, 0.96);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--rule);
+      }
+      .appbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 12px 0;
+        flex-wrap: wrap;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--font-display);
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+      .brand-mark {
+        width: 14px;
+        height: 14px;
+        background: var(--terracotta);
+      }
+      .tabs {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+      }
+      .tabs a {
+        font-size: 14px;
+        color: var(--ink);
+        text-decoration: none;
+        padding: 8px 14px;
+        border-radius: 2px;
+        min-height: 36px;
+        display: inline-flex;
+        align-items: center;
+      }
+      .tabs a:hover {
+        background: rgba(20, 22, 26, 0.06);
+      }
+      .tabs a.is-active {
+        background: var(--terracotta);
+        color: var(--ivory);
+      }
+      .appbar-note {
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      .page-head {
+        padding: 40px 0 28px;
+      }
+      .page-head h1 {
+        font-family: var(--font-display);
+        font-size: clamp(28px, 5vw, 40px);
+        font-weight: 600;
+        margin: 0 0 10px;
+        line-height: 1.2;
+      }
+      .page-head p {
+        margin: 0;
+        color: var(--text-muted);
+        max-width: 52ch;
+      }
+
+      .band {
+        border: 1px solid var(--rule);
+        border-radius: 2px;
+        margin-bottom: 16px;
+        overflow: hidden;
+        background: var(--ivory);
+      }
+      .band-head {
+        padding: 18px 20px 12px;
+        font-family: var(--font-display);
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .band-head small {
+        display: block;
+        margin-top: 4px;
+        font-family: var(--font-body);
+        font-size: 12px;
+        font-weight: 400;
+        color: var(--text-muted);
+      }
+      .band-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+      }
+      .chip {
+        flex: 1 1 110px;
+        min-width: 110px;
+        min-height: 88px;
+        padding: 14px 12px 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 2px;
+        border-right: 1px solid rgba(20, 22, 26, 0.08);
+      }
+      .chip:last-child {
+        border-right: none;
+      }
+      .chip-name {
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.25;
+      }
+      .chip-hex {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        opacity: 0.85;
+      }
+      .chip.on-dark {
+        color: var(--ivory);
+      }
+      .chip.on-light {
+        color: var(--ink);
+      }
+
+      .band.warm {
+        background: var(--terracotta);
+      }
+      .band.warm .band-head {
+        color: var(--ivory);
+      }
+      .band.warm .band-head small {
+        color: rgba(242, 241, 237, 0.75);
+      }
+
+      .band.ink {
+        background: #14161a;
+      }
+      .band.ink .band-head {
+        color: var(--ivory);
+      }
+      .band.ink .band-head small {
+        color: rgba(242, 241, 237, 0.65);
+      }
+
+      .band.cool {
+        background: var(--slate);
+      }
+      .band.cool .band-head {
+        color: var(--ivory);
+      }
+      .band.cool .band-head small {
+        color: rgba(242, 241, 237, 0.7);
+      }
+
+      .band.neutral {
+        background: var(--ivory);
+      }
+      .band.neutral .band-head {
+        color: var(--ink);
+      }
+
+      .ratio-bar {
+        display: flex;
+        height: 28px;
+        border: 1px solid var(--rule);
+        margin: 24px 0 8px;
+        overflow: hidden;
+      }
+      .ratio-labels {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 20px;
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+      .dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        margin-right: 6px;
+        border: 1px solid rgba(20, 22, 26, 0.15);
+        vertical-align: middle;
+      }
+
+      section.block {
+        padding: 36px 0 8px;
+      }
+      .section-title {
+        font-family: var(--font-display);
+        font-size: 22px;
+        font-weight: 600;
+        margin: 0 0 6px;
+      }
+      .section-sub {
+        margin: 0 0 18px;
+        color: var(--text-muted);
+        font-size: 13px;
+      }
+
+      .type-block {
+        border: 1px solid var(--rule);
+        background: var(--ivory);
+        margin-bottom: 12px;
+      }
+      .type-block-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--rule);
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+      .type-block-body {
+        padding: 20px 16px 22px;
+      }
+      .sample-display {
+        font-family: var(--font-display);
+        font-size: clamp(28px, 4vw, 40px);
+        font-weight: 600;
+        line-height: 1.2;
+        margin: 0;
+      }
+      .sample-body {
+        margin: 0;
+        max-width: 56ch;
+      }
+      .sample-mono {
+        margin: 0;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+      .scale-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 16px 16px;
+      }
+      .scale-row span {
+        font-size: 12px;
+        border: 1px solid var(--rule);
+        padding: 6px 10px;
+        background: var(--paper);
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      @media (min-width: 800px) {
+        .grid-2 {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .panel {
+        border: 1px solid var(--rule);
+        background: var(--ivory);
+        padding: 16px;
+      }
+      .panel h3 {
+        margin: 0 0 14px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--text-muted);
+      }
+      .btn-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .btn {
+        appearance: none;
+        border: none;
+        cursor: pointer;
+        font-family: var(--font-body);
+        font-size: 14px;
+        padding: 10px 18px;
+        min-height: 44px;
+        border-radius: 2px;
+      }
+      .btn-primary {
+        background: var(--terracotta);
+        color: var(--ivory);
+      }
+      .btn-primary:hover {
+        background: #9e3d29;
+      }
+      .btn-secondary {
+        background: transparent;
+        color: var(--ink);
+        border: 1px solid var(--rule);
+      }
+      .btn-secondary:hover {
+        border-color: var(--ink);
+      }
+      .btn-cool {
+        background: var(--cerulean);
+        color: var(--ivory);
+      }
+      .chip-tag {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 2px;
+        font-size: 12px;
+        margin: 0 6px 6px 0;
+        background: var(--accent-soft);
+        color: var(--terracotta);
+      }
+      .chip-tag.cool {
+        background: var(--cool-soft);
+        color: #354d68;
+      }
+      .caption {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 10px;
+      }
+      .photo-card {
+        border: 1px solid var(--rule);
+        background: var(--paper);
+      }
+      .photo-card img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+        background: var(--limestone);
+      }
+      .photo-card-body {
+        padding: 12px 14px 14px;
+      }
+      .photo-card-title {
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 16px;
+        margin: 0 0 4px;
+      }
+      .swatch-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .mini-swatch {
+        width: 72px;
+      }
+      .mini-swatch .box {
+        height: 48px;
+        border: 1px solid var(--rule);
+      }
+      .mini-swatch span {
+        display: block;
+        font-size: 11px;
+        color: var(--text-muted);
+        margin-top: 4px;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+      }
+      table.spec {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        background: var(--ivory);
+        border: 1px solid var(--rule);
+      }
+      table.spec th,
+      table.spec td {
+        text-align: left;
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--rule);
+        vertical-align: top;
+      }
+      table.spec th {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-muted);
+      }
+      table.spec code {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        padding: 1px 5px;
+      }
+
+      .rationale {
+        margin: 48px 0 64px;
+        border-top: 1px solid var(--rule);
+        padding-top: 36px;
+      }
+      .rationale h2 {
+        font-family: var(--font-display);
+        font-size: 22px;
+        font-weight: 600;
+        margin: 0 0 8px;
+      }
+      .rationale > p {
+        margin: 0 0 20px;
+        color: var(--text-muted);
+        max-width: 58ch;
+      }
+      .idea-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      @media (min-width: 700px) {
+        .idea-list {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .idea {
+        border: 1px solid var(--rule);
+        background: var(--ivory);
+        padding: 14px 16px;
+      }
+      .idea h3 {
+        margin: 0 0 6px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .idea p {
+        margin: 0;
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+
+      footer {
+        border-top: 1px solid var(--rule);
+        padding: 24px 0 40px;
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+      footer code {
+        font-family: var(--font-mono);
+        font-size: 11px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="appbar">
+      <div class="wrap appbar-inner">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>PANA GROUND <span style="font-weight:500;color:var(--text-muted);letter-spacing:0">v2</span>
+        </div>
+        <nav class="tabs" aria-label="规范目录">
+          <a class="is-active" href="#color">色彩</a>
+          <a href="#type">字体</a>
+          <a href="#space">间距</a>
+          <a href="#comp">组件</a>
+          <a href="#rationale">设计思路</a>
+        </nav>
+        <div class="appbar-note">from 精选50张 · 冷中性重推</div>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap page-head">
+        <h1>规范总览 · v2</h1>
+        <p>
+          基于重选后的 50 张：中性与蓝灰主导，略冷（W≈−1.5）。纸底改为阴天冷灰，赤陶仅作唯一暖强调。中英字体各不超过 3 种。
+        </p>
+      </div>
+
+      <section id="color" class="block" style="padding-top: 8px">
+        <div class="wrap">
+          <h2 class="section-title">色彩 Color</h2>
+          <p class="section-sub">冷纸底 + 深墨字；蓝灰负责信息与环境；赤陶/金只作稀疏暖点。</p>
+
+          <div class="band warm">
+            <div class="band-head">
+              accent · sparse warmth
+              <small>交互强调、主按钮、链接；画面里对应织物/红船/寺院</small>
+            </div>
+            <div class="band-strip">
+              <div class="chip on-dark" style="background: #b84a32">
+                <div class="chip-name">terracotta</div>
+                <div class="chip-hex">#B84A32</div>
+              </div>
+              <div class="chip on-dark" style="background: #9e3d29">
+                <div class="chip-name">terracotta-700</div>
+                <div class="chip-hex">#9E3D29</div>
+              </div>
+              <div class="chip on-dark" style="background: #c4a46a">
+                <div class="chip-name">gold</div>
+                <div class="chip-hex">#C4A46A</div>
+              </div>
+              <div class="chip on-light" style="background: #e8d4cc">
+                <div class="chip-name">accent-soft</div>
+                <div class="chip-hex">#E8D4CC</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="band cool">
+            <div class="band-head">
+              cool · sky &amp; sea
+              <small>天空、雪山、海湾、夜蓝；信息色与次按钮</small>
+            </div>
+            <div class="band-strip">
+              <div class="chip on-dark" style="background: #5b7fa3">
+                <div class="chip-name">cerulean</div>
+                <div class="chip-hex">#5B7FA3</div>
+              </div>
+              <div class="chip on-dark" style="background: #6e8b94">
+                <div class="chip-name">sea</div>
+                <div class="chip-hex">#6E8B94</div>
+              </div>
+              <div class="chip on-dark" style="background: #4a5a6e">
+                <div class="chip-name">slate</div>
+                <div class="chip-hex">#4A5A6E</div>
+              </div>
+              <div class="chip on-light" style="background: #d5dee8">
+                <div class="chip-name">cool-soft</div>
+                <div class="chip-hex">#D5DEE8</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="band ink">
+            <div class="band-head">
+              text · ink
+              <small>正文与标题；夜景近黑中性</small>
+            </div>
+            <div class="band-strip">
+              <div class="chip on-dark" style="background: #14161a">
+                <div class="chip-name">ink</div>
+                <div class="chip-hex">#14161A</div>
+              </div>
+              <div class="chip on-dark" style="background: #3a3e44">
+                <div class="chip-name">ink-700</div>
+                <div class="chip-hex">#3A3E44</div>
+              </div>
+              <div class="chip on-dark" style="background: #6b6e73">
+                <div class="chip-name">text-muted</div>
+                <div class="chip-hex">#6B6E73</div>
+              </div>
+              <div class="chip on-light" style="background: #9a9b9e">
+                <div class="chip-name">ash</div>
+                <div class="chip-hex">#9A9B9E</div>
+              </div>
+              <div class="chip on-light" style="background: #c4bdb2">
+                <div class="chip-name">limestone</div>
+                <div class="chip-hex">#C4BDB2</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="band neutral">
+            <div class="band-head">
+              bg · surface
+              <small>阴天冷纸底，不是 v1 的暖奶油色</small>
+            </div>
+            <div class="band-strip">
+              <div class="chip on-light" style="background: #e6e4de">
+                <div class="chip-name">paper / bg</div>
+                <div class="chip-hex">#E6E4DE</div>
+              </div>
+              <div class="chip on-light" style="background: #f2f1ed">
+                <div class="chip-name">ivory</div>
+                <div class="chip-hex">#F2F1ED</div>
+              </div>
+              <div class="chip on-light" style="background: #c9c6be">
+                <div class="chip-name">rule</div>
+                <div class="chip-hex">#C9C6BE</div>
+              </div>
+              <div class="chip on-light" style="background: #c4bdb2">
+                <div class="chip-name">limestone</div>
+                <div class="chip-hex">#C4BDB2</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ratio-bar" role="img" aria-label="用色比例">
+            <div style="width: 55%; background: #c4bdb2"></div>
+            <div style="width: 25%; background: #5b7fa3"></div>
+            <div style="width: 15%; background: #b84a32"></div>
+            <div style="width: 5%; background: #14161a"></div>
+          </div>
+          <div class="ratio-labels">
+            <span><i class="dot" style="background: #c4bdb2"></i>冷中性 55%</span>
+            <span><i class="dot" style="background: #5b7fa3"></i>蓝灰海天 25%</span>
+            <span><i class="dot" style="background: #b84a32"></i>赤陶+金 15%</span>
+            <span><i class="dot" style="background: #14161a"></i>深墨 5%</span>
+          </div>
+
+          <div class="table-wrap" style="margin-top: 24px">
+            <table class="spec">
+              <thead>
+                <tr>
+                  <th>角色</th>
+                  <th>Token</th>
+                  <th>用法</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>强调</td>
+                  <td><code>--accent</code></td>
+                  <td>链接 / 主按钮 / 选中；唯一暖交互色</td>
+                </tr>
+                <tr>
+                  <td>背景</td>
+                  <td><code>--bg</code></td>
+                  <td>冷纸 #E6E4DE</td>
+                </tr>
+                <tr>
+                  <td>次文</td>
+                  <td><code>--text-muted</code></td>
+                  <td>冷灰图说</td>
+                </tr>
+                <tr>
+                  <td>冷信息</td>
+                  <td><code>--cool</code></td>
+                  <td>cerulean 次按钮 / 进度</td>
+                </tr>
+                <tr>
+                  <td>暖点缀</td>
+                  <td><code>--gold</code></td>
+                  <td>金佛/木构类装饰，不做主 CTA</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="type" class="block">
+        <div class="wrap">
+          <h2 class="section-title">字体 Typography</h2>
+          <p class="section-sub">中文 2 种：宋体、苹方。英文 3 种：Georgia、Segoe UI/system-ui、Consolas。</p>
+
+          <div class="type-block">
+            <div class="type-block-head">
+              <span>Display · 宋体 / Georgia</span>
+              <span>clamp 28–40 · 600 · lh 1.2</span>
+            </div>
+            <div class="type-block-body">
+              <p class="sample-display">Overcast on the salt flats</p>
+            </div>
+          </div>
+
+          <div class="type-block">
+            <div class="type-block-head">
+              <span>Body · 苹方 / Segoe UI</span>
+              <span>15px · 400 · lh 1.65</span>
+            </div>
+            <div class="type-block-body">
+              <p class="sample-body">
+                Almost no color left but the road. Cool paper under the images; terracotta only when
+                something is clickable. People stay as scale, never as the subject.
+              </p>
+            </div>
+            <div class="scale-row">
+              <span>12 caption</span><span>14 small</span><span>15 body</span>
+              <span>18 lead</span><span>22 h2</span><span>28 h1</span><span>40 display</span>
+            </div>
+          </div>
+
+          <div class="type-block">
+            <div class="type-block-head">
+              <span>Mono · Consolas</span>
+              <span>仅 code / token / 文件名</span>
+            </div>
+            <div class="type-block-body">
+              <p class="sample-mono">P1000448.JPG · --cerulean #5B7FA3 · --paper #E6E4DE</p>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="spec">
+              <thead>
+                <tr>
+                  <th>角色</th>
+                  <th>字体栈</th>
+                  <th>用途</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Display</td>
+                  <td><code>"Songti SC", Georgia, serif</code></td>
+                  <td>大标题</td>
+                </tr>
+                <tr>
+                  <td>Body</td>
+                  <td><code>"PingFang SC", "Segoe UI", system-ui, sans-serif</code></td>
+                  <td>正文/表格/按钮</td>
+                </tr>
+                <tr>
+                  <td>Mono</td>
+                  <td><code>Consolas, "SF Mono", monospace</code></td>
+                  <td>代码、token、文件名</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="space" class="block">
+        <div class="wrap">
+          <h2 class="section-title">间距与边框 Space</h2>
+          <p class="section-sub">阴天与空景需要更多呼吸；图与图之间优先 8–12vh。</p>
+          <div class="table-wrap">
+            <table class="spec">
+              <thead>
+                <tr>
+                  <th>项</th>
+                  <th>值</th>
+                  <th>说明</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>基数</td>
+                  <td><code>4px</code></td>
+                  <td>8 / 12 / 16 / 24 / 32 / 48 / 72</td>
+                </tr>
+                <tr>
+                  <td>章节内图距</td>
+                  <td><code>8vh–12vh</code></td>
+                  <td>避免塞满</td>
+                </tr>
+                <tr>
+                  <td>圆角</td>
+                  <td><code>0</code> · <code>2px</code></td>
+                  <td>硬边</td>
+                </tr>
+                <tr>
+                  <td>边框</td>
+                  <td><code>1px solid var(--rule)</code></td>
+                  <td>发丝线，不用重阴影</td>
+                </tr>
+                <tr>
+                  <td>焦点</td>
+                  <td><code>2px solid var(--cerulean)</code></td>
+                  <td>offset 2px</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="comp" class="block">
+        <div class="wrap">
+          <h2 class="section-title">组件 Components</h2>
+          <p class="section-sub">主 CTA 只用赤陶；冷操作用 cerulean；金只作小面积装饰。</p>
+          <div class="grid-2">
+            <div class="panel">
+              <h3>BUTTONS</h3>
+              <div class="btn-row">
+                <button type="button" class="btn btn-primary">View frame</button>
+                <button type="button" class="btn btn-secondary">Back to index</button>
+                <button type="button" class="btn btn-cool">Map</button>
+              </div>
+              <p class="caption">Primary terracotta · Secondary 描边 · Cool 信息。最小高度 44px。</p>
+            </div>
+            <div class="panel">
+              <h3>TAGS</h3>
+              <div>
+                <span class="chip-tag">Plateau</span>
+                <span class="chip-tag">Night</span>
+                <span class="chip-tag cool">Sea</span>
+                <span class="chip-tag cool">Structure</span>
+              </div>
+              <p class="caption">暖主题 accent-soft；冷主题 cool-soft。</p>
+            </div>
+            <div class="panel">
+              <h3>PHOTO CARD</h3>
+              <article class="photo-card">
+                <img src="精选50张/P1000448.JPG" alt="Snow peaks under blue sky" />
+                <div class="photo-card-body">
+                  <div class="photo-card-title">Snowline, midday</div>
+                  <div class="caption" style="margin-top: 0">P1000448 · cerulean / ivory</div>
+                </div>
+              </article>
+            </div>
+            <div class="panel">
+              <h3>PALETTE MINI</h3>
+              <div class="swatch-row">
+                <div class="mini-swatch">
+                  <div class="box" style="background: #e6e4de"></div>
+                  <span>paper</span>
+                </div>
+                <div class="mini-swatch">
+                  <div class="box" style="background: #5b7fa3"></div>
+                  <span>cerulean</span>
+                </div>
+                <div class="mini-swatch">
+                  <div class="box" style="background: #b84a32"></div>
+                  <span>terracotta</span>
+                </div>
+                <div class="mini-swatch">
+                  <div class="box" style="background: #14161a"></div>
+                  <span>ink</span>
+                </div>
+              </div>
+              <p class="caption">冷纸底 / 蓝灰 / 稀疏赤陶 / 深墨。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="rationale" class="rationale">
+        <div class="wrap">
+          <h2>设计思路</h2>
+          <p>v1 → v2 的转向，全部来自新 50 张的像素与题材，而不是换一种「好看」。</p>
+          <div class="idea-list">
+            <div class="idea">
+              <h3>冷中性取代暖纸</h3>
+              <p>新片中性像素最多，蓝其次；平均冷暖 −1.5。阴天纸底比 v1 奶油色更贴画面，也避免整站发黄。</p>
+            </div>
+            <div class="idea">
+              <h3>赤陶降为稀疏强调</h3>
+              <p>织物、红船、寺院仍在，但已不是主色族。交互仍用赤陶，面积必须比 v1 更小。</p>
+            </div>
+            <div class="idea">
+              <h3>金退出主色</h3>
+              <p>金佛与木构存在，只够做点缀 token，不能和赤陶抢第二主色。</p>
+            </div>
+            <div class="idea">
+              <h3>更空的版式</h3>
+              <p>大片山海、阴天、海灰信息量低；图距拉到 8–12vh，禁止等宽卡片阵。</p>
+            </div>
+            <div class="idea">
+              <h3>明暗双极</h3>
+              <p>L 从 26 到 152：既要夜景近黑，也要高调阴天。token 必须同时支持深底块与浅纸底。</p>
+            </div>
+            <div class="idea">
+              <h3>字体约束不变</h3>
+              <p>中文宋体+苹方，英文 Georgia / Segoe / Consolas 封顶三种，等宽不进正文。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        PANA GROUND v2 · 规范正文见 <code>DESIGN.md</code> · 影像来源
+        <code>精选50张/</code>（50 张，冷中性重推）
+      </div>
+    </footer>
+  </body>
+</html>

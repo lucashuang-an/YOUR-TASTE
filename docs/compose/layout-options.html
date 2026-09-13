@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PANA GROUND — 排版模板预览</title>
+    <style>
+      :root {
+        --ink: #1a1410;
+        --paper: #e9e0d2;
+        --sand: #c4a882;
+        --terracotta: #b84a32;
+        --cerulean: #5b7fa3;
+        --ivory: #f4efe6;
+        --text-muted: #6b5e52;
+        --rule: #d0c4b4;
+        --font-display: "Songti SC", Georgia, serif;
+        --font-body: "PingFang SC", "Segoe UI", system-ui, sans-serif;
+        --font-mono: Consolas, "SF Mono", monospace;
+        --pad: clamp(20px, 4vw, 48px);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--font-body);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: var(--terracotta); }
+      .wrap { max-width: 1120px; margin: 0 auto; padding: 0 var(--pad); }
+
+      header.intro {
+        padding: 48px var(--pad) 28px;
+        border-bottom: 1px solid var(--rule);
+      }
+      header.intro h1 {
+        font-family: var(--font-display);
+        font-size: clamp(28px, 5vw, 40px);
+        margin: 0 0 10px;
+        font-weight: 600;
+      }
+      header.intro p { margin: 0; color: var(--text-muted); max-width: 52ch; }
+
+      nav.jump {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 16px var(--pad) 0;
+      }
+      nav.jump a {
+        text-decoration: none;
+        font-size: 13px;
+        padding: 8px 12px;
+        border: 1px solid var(--rule);
+        color: var(--ink);
+        border-radius: 2px;
+      }
+      nav.jump a:hover { border-color: var(--terracotta); color: var(--terracotta); }
+
+      section.tpl {
+        border-top: 1px solid var(--rule);
+        padding: 48px 0 56px;
+      }
+      .tpl-head {
+        max-width: 1120px;
+        margin: 0 auto 28px;
+        padding: 0 var(--pad);
+      }
+      .tpl-head .num {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        color: var(--terracotta);
+      }
+      .tpl-head h2 {
+        font-family: var(--font-display);
+        font-size: clamp(24px, 3.5vw, 32px);
+        margin: 6px 0 8px;
+        font-weight: 600;
+      }
+      .tpl-head p { margin: 0; color: var(--text-muted); max-width: 58ch; }
+      .tpl-head .ref {
+        margin-top: 8px;
+        font-size: 12px;
+        font-family: var(--font-mono);
+        color: var(--text-muted);
+      }
+      .tpl-head .ref a { color: var(--cerulean); }
+      .hint {
+        display: inline-block;
+        margin-top: 12px;
+        font-size: 12px;
+        padding: 4px 10px;
+        background: #f0d8cc;
+        color: var(--terracotta);
+        border-radius: 2px;
+      }
+
+      .cap {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 8px;
+      }
+      img { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--sand); }
+
+      /* —— A 美术馆疏墙 —— */
+      .a-wall {
+        padding: 8vh var(--pad) 12vh;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      .a-item { margin-bottom: 18vh; }
+      .a-item:last-child { margin-bottom: 4vh; }
+      .a-frame { width: min(72vw, 720px); margin: 0 auto; }
+      .a-frame.tall { width: min(42vw, 420px); }
+      .a-frame img { aspect-ratio: 3/2; height: auto; }
+      .a-frame.tall img { aspect-ratio: 3/4; }
+      .a-item .cap { text-align: center; }
+
+      /* —— B 呼吸感非对称 —— */
+      .b-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4vh var(--pad) 10vh;
+        display: grid;
+        gap: 8vh 3vw;
+      }
+      @media (min-width: 800px) {
+        .b-grid { grid-template-columns: repeat(12, 1fr); }
+        .b1 { grid-column: 1 / 7; }
+        .b2 { grid-column: 8 / 13; margin-top: 12vh; }
+        .b3 { grid-column: 3 / 10; margin-top: 6vh; }
+        .b4 { grid-column: 1 / 5; margin-top: 10vh; }
+        .b5 { grid-column: 6 / 12; }
+        .b6 { grid-column: 2 / 8; margin-top: 8vh; }
+      }
+      .b-grid > figure { margin: 0; }
+      .b-grid img { aspect-ratio: 3/2; height: auto; }
+      .b-grid .tall img { aspect-ratio: 3/4; }
+
+      /* —— C 全幅章节 + 停顿 —— */
+      .c-bleed { width: 100%; }
+      .c-bleed img { width: 100%; height: min(72vh, 700px); object-fit: cover; }
+      .c-pause {
+        max-width: 36rem;
+        margin: 10vh auto;
+        padding: 0 var(--pad);
+        text-align: center;
+        color: var(--text-muted);
+      }
+      .c-pause strong {
+        display: block;
+        font-family: var(--font-display);
+        font-size: 22px;
+        color: var(--ink);
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      .c-stack {
+        max-width: 720px;
+        margin: 0 auto 12vh;
+        padding: 0 var(--pad);
+      }
+      .c-stack figure { margin: 0 0 10vh; }
+      .c-stack img { aspect-ratio: 3/2; height: auto; }
+
+      /* —— D 索引 + 展开 —— */
+      .d-index { max-width: 720px; margin: 0 auto; padding: 2vh var(--pad) 10vh; }
+      .d-row {
+        border-top: 1px solid var(--rule);
+        padding: 18px 0;
+        cursor: pointer;
+        display: grid;
+        grid-template-columns: 48px 1fr auto;
+        gap: 12px;
+        align-items: baseline;
+      }
+      .d-row:hover { color: var(--terracotta); }
+      .d-row .t { font-family: var(--font-display); font-size: 18px; font-weight: 600; }
+      .d-row .n { font-size: 12px; font-family: var(--font-mono); color: var(--text-muted); }
+      .d-expand {
+        display: none;
+        padding: 0 0 24px;
+        grid-column: 1 / -1;
+      }
+      .d-row.open .d-expand { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 8px; }
+      .d-expand img { aspect-ratio: 3/2; height: auto; }
+      .d-row.open .t { color: var(--terracotta); }
+
+      footer.pick {
+        border-top: 1px solid var(--rule);
+        padding: 36px var(--pad) 64px;
+      }
+      footer.pick p { margin: 0 0 8px; color: var(--text-muted); max-width: 52ch; }
+      footer.pick code { font-family: var(--font-mono); font-size: 12px; }
+    </style>
+  </head>
+  <body>
+    <header class="intro">
+      <h1>四种排版模板 · 实物预览</h1>
+      <p>
+        用同一批精选照片试排。当前站点是偏满的编辑流；下面四种都更强调留白与呼吸。看完选一个编号即可。
+      </p>
+    </header>
+    <nav class="jump" aria-label="跳转">
+      <a href="#tpl-a">A 美术馆疏墙</a>
+      <a href="#tpl-b">B 呼吸感非对称</a>
+      <a href="#tpl-c">C 全幅 + 停顿</a>
+      <a href="#tpl-d">D 索引展开</a>
+    </nav>
+
+    <!-- A -->
+    <section class="tpl" id="tpl-a">
+      <div class="tpl-head">
+        <div class="num">TEMPLATE A</div>
+        <h2>美术馆疏墙</h2>
+        <p>一屏一图、边距极大、图说极小。最安静，50 张页面会很长，适合当「精选墙」而不是快速浏览。</p>
+        <div class="ref">
+          参考方向：
+          <a href="https://www.michaelkenna.com/" target="_blank" rel="noopener">michaelkenna.com</a>
+          · 极简风景 / 大量留白
+        </div>
+      </div>
+      <div class="a-wall">
+        <figure class="a-item">
+          <div class="a-frame">
+            <img src="精选50张/P1000872.JPG" alt="Snow forest" />
+          </div>
+          <figcaption class="cap">Snow forest light · P1000872</figcaption>
+        </figure>
+        <figure class="a-item">
+          <div class="a-frame tall">
+            <img src="精选50张/P1000666.JPG" alt="Plates on blue wall" />
+          </div>
+          <figcaption class="cap">Plates on blue · P1000666</figcaption>
+        </figure>
+        <figure class="a-item">
+          <div class="a-frame">
+            <img src="精选50张/P1011843.JPG" alt="Sea of clouds" />
+          </div>
+          <figcaption class="cap">Sea of clouds · P1011843</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- B -->
+    <section class="tpl" id="tpl-b">
+      <div class="tpl-head">
+        <div class="num">TEMPLATE B</div>
+        <h2>呼吸感非对称编辑流</h2>
+        <p>章节间距大；单行 1 图或左右错位；故意留空列，图宽不一。推荐：仍有叙事节奏，又不塞满。</p>
+        <div class="ref">
+          参考方向：
+          <a href="https://aperture.org/" target="_blank" rel="noopener">aperture.org</a>
+          · 编辑式图文；
+          <a href="https://www.jimmychin.com/" target="_blank" rel="noopener">jimmychin.com</a>
+          · 大图与节奏
+        </div>
+        <span class="hint">推荐</span>
+      </div>
+      <div class="b-grid">
+        <figure class="b1">
+          <img src="精选50张/P1000249.JPG" alt="Textiles" />
+          <figcaption class="cap">Textile wall · Kashgar</figcaption>
+        </figure>
+        <figure class="b2 tall">
+          <img src="精选50张/P1000918.JPG" alt="Prayer wheels" />
+          <figcaption class="cap">Prayer wheel corridor</figcaption>
+        </figure>
+        <figure class="b3">
+          <img src="精选50张/P1022357.JPG" alt="Rocky coast" />
+          <figcaption class="cap">Rocky coast</figcaption>
+        </figure>
+        <figure class="b4 tall">
+          <img src="精选50张/P1000664.JPG" alt="Night market" />
+          <figcaption class="cap">Night market</figcaption>
+        </figure>
+        <figure class="b5">
+          <img src="精选50张/P1011843.JPG" alt="Cloud sea" />
+          <figcaption class="cap">Sea of clouds</figcaption>
+        </figure>
+        <figure class="b6">
+          <img src="精选50张/P1000888.JPG" alt="Bridge night" />
+          <figcaption class="cap">Bridge at night</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- C -->
+    <section class="tpl" id="tpl-c">
+      <div class="tpl-head">
+        <div class="num">TEMPLATE C</div>
+        <h2>全幅章节 + 文字停顿</h2>
+        <p>每章先整屏大图，中间用纯文字章节语停一停，再竖向放图。更像摄影 essay，适合章节感强的 6 组。</p>
+        <div class="ref">
+          参考方向：
+          <a href="https://www.institutosalgado.com.br/" target="_blank" rel="noopener">Salgado / Instituto</a>
+          · 纪实长卷；
+          <a href="https://www.magnumphotos.com/" target="_blank" rel="noopener">magnumphotos.com</a>
+          · 长图叙事
+        </div>
+      </div>
+      <div class="c-bleed">
+        <img src="精选50张/P1000918.JPG" alt="Corridor" />
+      </div>
+      <div class="c-pause">
+        <strong>03 · Temple Light</strong>
+        Gold leaf, painted ceilings, corridors that hold silence.
+      </div>
+      <div class="c-stack">
+        <figure>
+          <img src="精选50张/P1000802.JPG" alt="Grotto paint" />
+          <figcaption class="cap">Grotto paint</figcaption>
+        </figure>
+        <figure>
+          <img src="精选50张/P1011461.JPG" alt="Red gold interior" />
+          <figcaption class="cap">Interior · red &amp; gold</figcaption>
+        </figure>
+      </div>
+      <div class="c-bleed">
+        <img src="精选50张/P1022357.JPG" alt="Coast" />
+      </div>
+      <div class="c-pause">
+        <strong>05 · Water &amp; Village</strong>
+        Tide lines and roofs under a working sky.
+      </div>
+    </section>
+
+    <!-- D -->
+    <section class="tpl" id="tpl-d">
+      <div class="tpl-head">
+        <div class="num">TEMPLATE D</div>
+        <h2>索引目录 + 展开</h2>
+        <p>默认极简文字列表，点击才展开图。信息密度低、最不像「作品集网格」，但首次浏览可能不直观。</p>
+        <div class="ref">参考方向：画廊/摄影书目录页 · Click to expand</div>
+      </div>
+      <div class="d-index">
+        <div class="d-row open" data-toggle>
+          <span class="n">01</span>
+          <span class="t">Clay &amp; Loom</span>
+          <span class="n">11 frames</span>
+          <div class="d-expand">
+            <img src="精选50张/P1000249.JPG" alt="" />
+            <img src="精选50张/P1000666.JPG" alt="" />
+          </div>
+        </div>
+        <div class="d-row" data-toggle>
+          <span class="n">02</span>
+          <span class="t">High Country</span>
+          <span class="n">9 frames</span>
+          <div class="d-expand">
+            <img src="精选50张/P1000872.JPG" alt="" />
+            <img src="精选50张/P1011843.JPG" alt="" />
+          </div>
+        </div>
+        <div class="d-row" data-toggle>
+          <span class="n">03</span>
+          <span class="t">Temple Light</span>
+          <span class="n">7 frames</span>
+          <div class="d-expand">
+            <img src="精选50张/P1000918.JPG" alt="" />
+            <img src="精选50张/P1012186.JPG" alt="" />
+          </div>
+        </div>
+        <div class="d-row" data-toggle>
+          <span class="n">04</span>
+          <span class="t">Still &amp; Form</span>
+          <span class="n">9 frames</span>
+          <div class="d-expand">
+            <img src="精选50张/P1000007.JPG" alt="" />
+            <img src="精选50张/P1000926.JPG" alt="" />
+          </div>
+        </div>
+        <div class="d-row" data-toggle>
+          <span class="n">05</span>
+          <span class="t">Water &amp; Village</span>
+          <span class="n">10 frames</span>
+          <div class="d-expand">
+            <img src="精选50张/P1012183.JPG" alt="" />
+            <img src="精选50张/P1022352.JPG" alt="" />
+          </div>
+        </div>
+        <div class="d-row" data-toggle>
+          <span class="n">06</span>
+          <span class="t">Street Frame</span>
+          <span class="n">4 frames</span>
+          <div class="d-expand">
+            <img src="精选50张/P1001159.JPG" alt="" />
+            <img src="精选50张/P1000888.JPG" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="pick">
+      <p>选定后回复例如：<code>选 B</code>。也可说「B 但更空」「C+B 混合」等。</p>
+      <p>参考链接仅作风格方向，非像素级复刻。主站仍将使用 PANA GROUND 设计 token。</p>
+    </footer>
+
+    <script>
+      document.querySelectorAll("[data-toggle]").forEach(function (row) {
+        row.addEventListener("click", function () {
+          document.querySelectorAll("[data-toggle]").forEach(function (r) {
+            if (r !== row) r.classList.remove("open");
+          });
+          row.classList.toggle("open");
+        });
+      });
+    </script>
+  </body>
+</html>
